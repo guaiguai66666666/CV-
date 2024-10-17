@@ -1,51 +1,39 @@
-CDS540作业1：使用OpenCV从图像中检测文本
+1. **Installation of Necessary Packages**：
+   - Keywords: OpenCV, Tesseract, Python
+   - Installation of essential packages: OpenCV for image processing and Tesseract for OCR (Optical Character Recognition). It imports these libraries using Python.
 
-### 1. 环境设置
+2. **Reading Images**：
+   - Keywords: cv2.imread, Image Paths
+   - It explains how to read images using OpenCV's `cv2.imread` function, specifying the image path.
 
-- **选择工具**：使用Google Colab、Jupyter Notebook或你熟悉的任何其他平台。
-- **安装库**：确保安装了OpenCV和Tesseract（OCR工具）。在Google Colab中，你可以使用`!pip install opencv-python-headless pytesseract`来安装OpenCV和通过pip安装Tesseract的Python接口。注意，Tesseract本身可能需要从[Tesseract GitHub页面](https://github.com/tesseract-ocr/tesseract)或你的操作系统的包管理器中单独安装。
+3. **OCR with Tesseract**：
+   - Keywords: pytesseract.image_to_string, Custom Configurations
+   - The text is extracted from images using Tesseract's `image_to_string` function. Custom configurations, such as `--oem 3 --psm 6`, are added to optimize OCR performance.
 
-### 2. 加载图像
+4. **Image Preprocessing Techniques**：
+   - Keywords: Median Blur, Thresholding, Dilation, Erosion, Opening, Canny Edge Detection
+   - Various preprocessing techniques are discussed, including median blur for noise removal, thresholding for binarization, dilation and erosion for image enhancement, opening for foreground extraction, and Canny edge detection for identifying edges.
 
-- 使用OpenCV的`cv2.imread()`函数加载包含文本的图像。确保图像路径正确。
+5. **Skew Correction**：
+   - Keywords: cv2.minAreaRect, Image Rotation
+   - The document mentions skew correction, which involves identifying the angle of rotation and correcting it using `cv2.warpAffine`.
 
-### 3. 图像预处理
+6. **Template Matching**：
+   - Keywords: cv2.matchTemplate, Template Images
+   - Template matching is briefly touched upon, using `cv2.matchTemplate` to find instances of a template image within a larger image.
 
-- **转换为灰度图**：使用`cv2.cvtColor()`函数将图像转换为灰度图，因为文本检测通常在灰度图上效果更好。
-- **应用图像处理技术**：
-  - **阈值处理**：使用`cv2.threshold()`或`cv2.adaptiveThreshold()`来增强文本和背景的对比度。
-  - **模糊**：如果图像中有噪声，可以使用`cv2.GaussianBlur()`或`cv2.medianBlur()`来平滑图像。
-  - **边缘检测**（可选）：虽然对于文本检测不是必需的，但在某些情况下，边缘检测可以帮助改善结果。
+7. **Drawing Boxes Around Text**：
+   - Keywords: pytesseract.image_to_boxes, Bounding Boxes
+   - It describes how to use `pytesseract.image_to_boxes` to get the bounding boxes of text blocks and draw them on the image.
 
-### 4. 文本检测
+8. **Recognizing Text with Confidence Scores**：
+   - Keywords: Text Confidence, Bounding Boxes
+   - It shows how to recognize text blocks with a confidence score higher than 60 and draw bounding boxes around them.
 
-- 使用OpenCV的文本检测器，如EAST（如果可用），或任何其他OpenCV兼容的方法。注意，OpenCV自带的文本检测功能可能有限，你可能需要查找额外的库或模块，如`opencv-contrib-python`中的`text`模块。
-- 如果没有内置的文本检测器，你可能需要查找第三方库，如`easyocr`，它基于Tesseract和深度学习，提供了更强大的文本检测功能。
-- 绘制检测到的文本区域的边界框。
+9. **Custom Detection for Numbers Only**：
+   - Keywords: Custom Configurations, Digit Recognition
+   - The document outlines how to use custom configurations to recognize only numbers from an image.
 
-### 5. 提取和显示文本
-
-- 使用Tesseract或其他OCR工具从检测到的区域中提取文本。
-- 显示提取的文本和带有边界框的注释图像。
-
-### 6. 效率和有效性评估
-
-- **测量速度**：记录文本检测系统的运行时间，以评估其速度。
-- **评估准确性**：比较OCR工具提取的文本与图像中的实际文本，以评估其准确性。
-- **讨论系统优缺点**：基于你的测试结果，讨论系统的优点、缺点以及可能的改进方向。
-
-### 7. 编写报告和提交
-
-- 编写一个1000-2000字的报告，评估你的文本检测系统的性能。
-- 报告应包括：
-  - 方法论描述
-  - 实验结果
-  - 效率和有效性分析
-  - 改进建议
-- 提交一个包含你的代码和解释的Jupyter Notebook（或等效文件）。
-- 提交用于测试的图像。
-- 提交一个指向你的应用运行演示视频的链接。
-- 如果可能，提交你的GitHub链接。
-- 确保所有文件都放在名为“Assignment 1 – Your Name”的目录中，并将该目录的链接提交到Moodle。
-
-
+10. **Processing Multiple Pages and Writing Results to a File**：
+    - Keywords: Loop for Pages, Preprocessing, Text Writing
+    - It mentions defining a function `read_text_from_image` to preprocess images, perform OCR, and write the results to a file. This function is then used in a loop to process multiple pages.
